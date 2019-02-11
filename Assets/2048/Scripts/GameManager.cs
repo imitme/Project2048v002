@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject lobbyCanvas;
-    public GameObject inGameCanvas;
-
     public int totalCount = 4;
     public int testNumCellCountLimit = 1;
     public float cellMovingTime = 0.1f;
+    public GameObject lobbyCanvas;
+    public GameObject inGameCanvas;
+
+    public Text score_Text;
 
     private Grid grid = null;
+    public int _score = 0;
 
     private void Awake()
     {
@@ -26,7 +29,7 @@ public class GameManager : MonoBehaviour
     public void GotoMenu()
     {
         StartCoroutine(ChangePaneltoMenu());
-        OnResetPlayerInfo();
+        ResetPlayerInfo();
     }
 
     private IEnumerator ChangePaneltoMenu()
@@ -40,14 +43,13 @@ public class GameManager : MonoBehaviour
         //lobbyCanvasAnim.SetTrigger("Start");
     }
 
-    private void OnResetPlayerInfo()
+    private void ResetPlayerInfo()
     {
-        //ResetScore();
+        grid.ResetScore();
     }
 
     public IEnumerator GotoPlay()
     {
-        Debug.Log("aa");
         // playButtonAnim.SetTrigger("Press");
         yield return new WaitForSeconds(0.3f);
         PlayGameStart();

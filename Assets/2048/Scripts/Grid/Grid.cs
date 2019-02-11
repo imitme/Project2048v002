@@ -18,6 +18,13 @@ public partial class Grid : MonoBehaviour
     private float cellMovingTime = 0.0f;
 
     public List<NumCell> cellsNum;
+    private int _score = 0;
+
+    private int score
+    {
+        get { return _score; }
+        set { _score = value; gameManager.score_Text.text = string.Format("Score : {0}", _score); }
+    }
 
     private void Awake()
     {
@@ -25,6 +32,12 @@ public partial class Grid : MonoBehaviour
         totalCount = gameManager.totalCount;
         testNumCellCountLimit = gameManager.testNumCellCountLimit;
         cellMovingTime = gameManager.cellMovingTime;
+        _score = gameManager._score;
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
     }
 
     public void SetGridMap(int count)

@@ -11,7 +11,6 @@ public partial class Grid : MonoBehaviour
 {
     public void MovetoDir(DIRECTION dir)
     {
-        Debug.Log("aaaa");
         CheckEmpthOriginalList();
         bool isMove = GetCellsDirLine(dir);
 
@@ -46,8 +45,6 @@ public partial class Grid : MonoBehaviour
             case DIRECTION.RIGHT:
                 dirCol = 1;
                 startPoint = totalCount - 1;
-                //  TestMergeCells(dir, dirCol, dirRow, startPoint);
-                //   checkMove = MoveCells(dir, 1, 0, totalCount - 1);
                 break;
 
             case DIRECTION.LEFT:
@@ -230,9 +227,6 @@ public partial class Grid : MonoBehaviour
         }
 
         movingCell.GetComponent<RectTransform>().localPosition = goalPos;
-        /*
-        movingCell.c = targetCol;
-        movingCell.r = targetRow;*/   //
     }
 
     private void GetJustOneLineList(List<NumCell> cellLine, int lineCount, int checkLineAsRow)
@@ -285,7 +279,7 @@ public partial class Grid : MonoBehaviour
             if (celLine[currentCell].num == celLine[nextCell].num)
             {
                 ///점수 보내주고
-                //sendScoreNum(celLine[currentCell].num);
+                SendScoreNum(celLine[currentCell].num);
 
                 ///움직이고
 
@@ -309,6 +303,13 @@ public partial class Grid : MonoBehaviour
         CheckEmpthOriginalList();
 
         return checkMove;
+    }
+
+    private void SendScoreNum(int addScore)
+    {
+        int currentScore = score;
+        currentScore += addScore;
+        score = currentScore;
     }
 
     private void DrawOneCell(bool isMove)
