@@ -4,10 +4,6 @@ using UnityEngine;
 
 public partial class Grid : MonoBehaviour
 {
-    public int totalCount = 4;
-    public int testNumCellCountLimit = 1;
-    public float cellMovingTime = 0.1f;
-
     public GameObject gridCellsPanel;
     public GameObject gridCellPrefab;
     public GameObject numCellsPanel;
@@ -16,31 +12,22 @@ public partial class Grid : MonoBehaviour
     private float myCellSize;
     private Vector3 firstPos = Vector3.zero;
 
+    private GameManager gameManager = null;
+    private int totalCount = 0;
+    private int testNumCellCountLimit = 0;
+    private float cellMovingTime = 0.0f;
+
     public List<NumCell> cellsNum;
 
-    private void Start()
+    private void Awake()
     {
-        PlayGameStart();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+        totalCount = gameManager.totalCount;
+        testNumCellCountLimit = gameManager.testNumCellCountLimit;
+        cellMovingTime = gameManager.cellMovingTime;
     }
 
-    private void PlayGameStart()
-    {
-        //lobbyPanel.SetActive(false);
-        //playPanel.SetActive(true);
-
-        //inGameCanvasAnim.SetTrigger("Start");
-
-        ////RESET
-        //deleteCellsPanel();
-        //deleteCellsNumPanel();
-        //cellsNum.Clear();   //리스트.Clear() ;
-
-        SetGridMap(totalCount);
-        SetCells(totalCount);
-        DrawRandomCells(totalCount, testNumCellCountLimit);
-    }
-
-    private void SetGridMap(int count)
+    public void SetGridMap(int count)
     {
         var myPanel = gridCellsPanel.GetComponent<RectTransform>();
         Vector2 myPanelSize = myPanel.sizeDelta;
@@ -54,7 +41,7 @@ public partial class Grid : MonoBehaviour
         myCellSize = cellSize;
     }
 
-    private void SetCells(int count)
+    public void SetCells(int count)
     {
         for (int c = 0; c < count; c++)
         {
@@ -77,7 +64,7 @@ public partial class Grid : MonoBehaviour
         return new Vector3(firstPos.x + col * myCellSize, firstPos.y + row * myCellSize, 0);
     }
 
-    private void DrawRandomCells(int count, int totalCellNum)
+    public void DrawRandomCells(int count, int totalCellNum)
     {
         int limitCount = 0;
 
@@ -118,5 +105,30 @@ public partial class Grid : MonoBehaviour
         cellNum.r = row;
         cellNum.name = string.Format("({0}, {1})", cellNum.c, cellNum.r);
         cellsNum.Add(cellNum);
+    }
+
+    public void ResetPanel()
+    {
+        deleteCellsPanel();
+        deleteCellsNumPanel();
+        cellsNum.Clear();
+    }
+
+    private void deleteCellsPanel()
+    {
+        RectTransform[] celsPanel = gridCellsPanel.GetComponentsInChildren<RectTransform>();
+        for (int i = 1; i < celsPanel.Length; i++)
+        {
+            Destroy(celsPanel[i].gameObject);
+        }
+    }
+
+    private void deleteCellsNumPanel()
+    {
+        RectTransform[] celsNumPanel = numCellsPanel.GetComponentsInChildren<RectTransform>();
+        for (int i = 1; i < celsNumPanel.Length; i++)
+        {
+            Destroy(celsNumPanel[i].gameObject);
+        }
     }
 }

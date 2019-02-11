@@ -5,11 +5,13 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     private Grid grid = null;
+    private GameManager gameManager = null;
     private DIRECTION dir;
 
     private void Awake()
     {
         grid = GameObject.FindObjectOfType<Grid>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
     }
 
     public void OnR_Button()
@@ -34,5 +36,15 @@ public class UIManager : MonoBehaviour
     {
         dir = DIRECTION.DOWN;
         grid.MovetoDir(dir);
+    }
+
+    public void OnGotoMenu_Button()
+    {
+        gameManager.GotoMenu();
+    }
+
+    public void OnPlay_Button()
+    {
+        StartCoroutine(gameManager.GotoPlay());
     }
 }
