@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public partial class Grid : MonoBehaviour
 {
     public int totalCount = 4;
     public int testNumCellCountLimit = 1;
+    public float cellMovingTime = 0.1f;
 
     public GameObject gridCellsPanel;
     public GameObject gridCellPrefab;
@@ -59,7 +60,7 @@ public class Grid : MonoBehaviour
         {
             for (int r = 0; r < count; r++)
             {
-                DrawCells(gridCellPrefab, gridCellsPanel, c, r, myCellSize, string.Format("Cell ({0}, {1})", c, r));
+                DrawCells(gridCellPrefab, gridCellsPanel, c, r, myCellSize, string.Format("Cell ({0}, {1})", c + 1, r + 1));
             }
         }
     }
