@@ -5,12 +5,17 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     public int totalCount = 4;
+    public int testNumCellCountLimit = 1;
 
-    public GameObject cellsPanel;
-    public GameObject cellPrefab;
+    public GameObject gridCellsPanel;
+    public GameObject gridCellPrefab;
+    public GameObject numCellsPanel;
+    public GameObject numCellPrefab;
 
     private float myCellSize;
     private Vector3 firstPos = Vector3.zero;
+
+    public List<NumCell> cellsNum;
 
     private void Start()
     {
@@ -31,12 +36,12 @@ public class Grid : MonoBehaviour
 
         SetGridMap(totalCount);
         SetCells(totalCount);
-        //DrawRandomCells(totalCount, firstSettingLimitNum);
+        DrawRandomCells(totalCount, testNumCellCountLimit);
     }
 
     private void SetGridMap(int count)
     {
-        var myPanel = cellsPanel.GetComponent<RectTransform>();
+        var myPanel = gridCellsPanel.GetComponent<RectTransform>();
         Vector2 myPanelSize = myPanel.sizeDelta;
 
         var firstPositionX = myPanelSize.x / count / 2;
@@ -54,7 +59,7 @@ public class Grid : MonoBehaviour
         {
             for (int r = 0; r < count; r++)
             {
-                DrawCells(cellPrefab, cellsPanel, c, r, myCellSize, string.Format("Cell ({0}, {1})", c, r));
+                DrawCells(gridCellPrefab, gridCellsPanel, c, r, myCellSize, string.Format("Cell ({0}, {1})", c, r));
             }
         }
     }
@@ -69,5 +74,48 @@ public class Grid : MonoBehaviour
     private Vector3 PointToVector3(int col, int row)
     {
         return new Vector3(firstPos.x + col * myCellSize, firstPos.y + row * myCellSize, 0);
+    }
+
+    private void DrawRandomCells(int count, int totalCellNum)
+    {
+        int limitCount = 0;
+
+        while (limitCount < totalCellNum)
+        {
+            int col = Random.Range(0, count);
+            int row = Random.Range(0, count);
+
+            if (IsEmpty(col, row))
+            {
+                DrawCellNum(numCellPrefab, numCellsPanel, col, row);
+                limitCount++;
+            }
+        }
+    }
+
+    private bool IsEmpty(int col, int row)
+    {
+        foreach (NumCell cellNum in cellsNum)
+        {
+            if (cellNum.c == col && cellNum.r == row)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void DrawCellNum(GameObject cellNumPrefab, GameObject cellNumPanel, int col, int row)
+    {
+        GameObject cel = Instantiate(cellNumPrefab, cellNumPanel.transform);
+        cel.GetComponent<RectTransform>().localPosition = PointToVector3(col, row);
+
+        //cel.GetComponent<Image>().color = Random.ColorHSV();
+
+        var cellNum = cel.GetComponent<NumCell>();
+        cellNum.c = col;
+        cellNum.r = row;
+        cellNum.name = string.Format("({0}, {1})", cellNum.c, cellNum.r);
+        cellsNum.Add(cellNum);
     }
 }
