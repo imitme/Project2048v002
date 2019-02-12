@@ -279,7 +279,7 @@ public partial class Grid : MonoBehaviour
             if (celLine[currentCell].num == celLine[nextCell].num)
             {
                 ///점수 보내주고
-                SendScoreNum(celLine[currentCell].num);
+                gameManager.Score += celLine[currentCell].num;
 
                 ///움직이고
 
@@ -303,13 +303,6 @@ public partial class Grid : MonoBehaviour
         CheckEmpthOriginalList();
 
         return checkMove;
-    }
-
-    private void SendScoreNum(int addScore)
-    {
-        int currentScore = score;
-        currentScore += addScore;
-        score = currentScore;
     }
 
     private void DrawOneCell(bool isMove)

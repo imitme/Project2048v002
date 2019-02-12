@@ -1,50 +1,45 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
-    private Grid grid = null;
-    private GameManager gameManager = null;
-    private DIRECTION dir;
+    [Serializable]
+    public class MoveEvent : UnityEvent<DIRECTION> { }
 
-    private void Awake()
-    {
-        grid = GameObject.FindObjectOfType<Grid>();
-        gameManager = GameObject.FindObjectOfType<GameManager>();
-    }
+    public MoveEvent moveEvent;
+    public UnityEvent gotoMenuEvent;
+    public UnityEvent gotoPlayEvent;
 
     public void OnR_Button()
     {
-        dir = DIRECTION.RIGHT;
-        grid.MovetoDir(dir);
+        moveEvent?.Invoke(DIRECTION.RIGHT);
     }
 
     public void OnL_Button()
     {
-        dir = DIRECTION.LEFT;
-        grid.MovetoDir(dir);
+        moveEvent?.Invoke(DIRECTION.LEFT);
     }
 
     public void OnU_Button()
     {
-        dir = DIRECTION.UP;
-        grid.MovetoDir(dir);
+        moveEvent?.Invoke(DIRECTION.UP);
     }
 
     public void OnD_Button()
     {
-        dir = DIRECTION.DOWN;
-        grid.MovetoDir(dir);
+        moveEvent?.Invoke(DIRECTION.DOWN);
     }
 
     public void OnGotoMenu_Button()
     {
-        gameManager.GotoMenu();
+        gotoMenuEvent?.Invoke();
     }
 
     public void OnPlay_Button()
     {
-        StartCoroutine(gameManager.GotoPlay());
+        gotoPlayEvent?.Invoke();
     }
 }

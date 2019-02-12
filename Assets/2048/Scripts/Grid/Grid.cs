@@ -13,31 +13,32 @@ public partial class Grid : MonoBehaviour
     private Vector3 firstPos = Vector3.zero;
 
     private GameManager gameManager = null;
-    private int totalCount = 0;
-    private int testNumCellCountLimit = 0;
-    private float cellMovingTime = 0.0f;
+    [SerializeField] private int totalCount = 4;
+    [SerializeField] private int testNumCellCountLimit = 1;
+    [SerializeField] private float cellMovingTime = 0.1f;
 
     public List<NumCell> cellsNum;
-    private int _score = 0;
-
-    private int score
-    {
-        get { return _score; }
-        set { _score = value; gameManager.score_Text.text = string.Format("Score : {0}", _score); }
-    }
 
     private void Awake()
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
-        totalCount = gameManager.totalCount;
-        testNumCellCountLimit = gameManager.testNumCellCountLimit;
-        cellMovingTime = gameManager.cellMovingTime;
-        _score = gameManager._score;
+    }
+
+    private void OnEnable()
+    {
+        gameManager.OnPlayGame += ResetPanel;
+        gameManager.OnResetScore += ResetScore;
+    }
+
+    private void OnDisable()
+    {
+        gameManager.OnPlayGame -= ResetPanel;
+        gameManager.OnResetScore -= ResetScore;
     }
 
     public void ResetScore()
     {
-        score = 0;
+        gameManager.Score = 0;
     }
 
     public void SetGridMap(int count)
@@ -125,6 +126,10 @@ public partial class Grid : MonoBehaviour
         deleteCellsPanel();
         deleteCellsNumPanel();
         cellsNum.Clear();
+
+        SetGridMap(totalCount);
+        SetCells(totalCount);
+        DrawRandomCells(totalCount, testNumCellCountLimit);
     }
 
     private void deleteCellsPanel()

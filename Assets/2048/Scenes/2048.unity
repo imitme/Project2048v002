@@ -1517,6 +1517,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9249aa88daf78d40b967e9640f5ada6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1410209175}
+        m_MethodName: MovetoDir
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UIManager+MoveEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  gotoMenuEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1179588219}
+        m_MethodName: GotoMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  gotoPlayEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1179588219}
+        m_MethodName: GotoPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!4 &1179588218
 Transform:
   m_ObjectHideFlags: 0
@@ -1543,13 +1591,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70cdb2e257ff333428df151095e0f005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalCount: 4
-  testNumCellCountLimit: 1
-  cellMovingTime: 0.1
   lobbyCanvas: {fileID: 235304856}
   inGameCanvas: {fileID: 1588436560}
-  score_Text: {fileID: 1763307502}
-  _score: 0
+  scoreText: {fileID: 1763307502}
 --- !u!1 &1410209173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,6 +1652,9 @@ MonoBehaviour:
   numCellsPanel: {fileID: 581814300}
   numCellPrefab: {fileID: 3822099581165049916, guid: a19e17f06da2b5d499e2e5c1c7d440d2,
     type: 3}
+  totalCount: 4
+  testNumCellCountLimit: 1
+  cellMovingTime: 0.1
   cellsNum: []
 --- !u!114 &1410209176
 MonoBehaviour:

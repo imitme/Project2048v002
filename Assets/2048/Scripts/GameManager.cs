@@ -1,25 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int totalCount = 4;
-    public int testNumCellCountLimit = 1;
-    public float cellMovingTime = 0.1f;
     public GameObject lobbyCanvas;
     public GameObject inGameCanvas;
 
-    public Text score_Text;
+    public Text scoreText;
 
-    private Grid grid = null;
-    public int _score = 0;
+    private int score = 0;
 
-    private void Awake()
+    public int Score
     {
-        grid = GameObject.FindObjectOfType<Grid>();
+        get { return score; }
+        set { score = value; scoreText.text = string.Format("Score : {0}", score); }
     }
+
+    public event Action OnPlayGame, OnResetScore;
 
     private void Start()
     {
@@ -45,10 +45,15 @@ public class GameManager : MonoBehaviour
 
     private void ResetPlayerInfo()
     {
-        grid.ResetScore();
+        OnResetScore?.Invoke();
     }
 
-    public IEnumerator GotoPlay()
+    public void GotoPlay()
+    {
+        StartCoroutine(GotoPlayProcess());
+    }
+
+    private IEnumerator GotoPlayProcess()
     {
         // playButtonAnim.SetTrigger("Press");
         yield return new WaitForSeconds(0.3f);
@@ -62,11 +67,6 @@ public class GameManager : MonoBehaviour
 
         //inGameCanvasAnim.SetTrigger("Start");
 
-        //RESET
-        grid.ResetPanel();
-
-        grid.SetGridMap(totalCount);
-        grid.SetCells(totalCount);
-        grid.DrawRandomCells(totalCount, testNumCellCountLimit);
+        OnPlayGame?.Invoke();
     }
 }
