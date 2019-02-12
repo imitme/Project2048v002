@@ -4,42 +4,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class UIManager : MonoBehaviour
+namespace Na
 {
-    [Serializable]
-    public class MoveEvent : UnityEvent<DIRECTION> { }
-
-    public MoveEvent moveEvent;
-    public UnityEvent gotoMenuEvent;
-    public UnityEvent gotoPlayEvent;
-
-    public void OnR_Button()
+    public class UIManager : MonoBehaviour
     {
-        moveEvent?.Invoke(DIRECTION.RIGHT);
-    }
+        [Serializable]
+        public class MoveEvent : UnityEvent<DIRECTION> { }
 
-    public void OnL_Button()
-    {
-        moveEvent?.Invoke(DIRECTION.LEFT);
-    }
+        public MoveEvent moveEvent;
+        public UnityEvent gotoMenuEvent;
+        public UnityEvent gotoPlayEvent;
 
-    public void OnU_Button()
-    {
-        moveEvent?.Invoke(DIRECTION.UP);
-    }
+        public void OnR_Button()
+        {
+            moveEvent?.Invoke(DIRECTION.RIGHT);
+        }
 
-    public void OnD_Button()
-    {
-        moveEvent?.Invoke(DIRECTION.DOWN);
-    }
+        public void OnL_Button()
+        {
+            moveEvent?.Invoke(DIRECTION.LEFT);
+        }
 
-    public void OnGotoMenu_Button()
-    {
-        gotoMenuEvent?.Invoke();
-    }
+        public void OnU_Button()
+        {
+            moveEvent?.Invoke(DIRECTION.UP);
+        }
 
-    public void OnPlay_Button()
-    {
-        gotoPlayEvent?.Invoke();
+        public void OnD_Button()
+        {
+            moveEvent?.Invoke(DIRECTION.DOWN);
+        }
+
+        public void OnGotoMenu_Button()
+        {
+            gotoMenuEvent?.Invoke();
+        }
+
+        public void OnPlay_Button()
+        {
+            gotoPlayEvent?.Invoke();
+        }
     }
 }

@@ -137,7 +137,6 @@ public partial class Grid : MonoBehaviour
             checkMove = true;
         }
 
-        Debug.Log("합쳐졌니? " + checkMerge + "  움직였니? " + checkMove);
         return checkMerge || checkMove;
     }
 
@@ -284,7 +283,7 @@ public partial class Grid : MonoBehaviour
                 ///움직이고
 
                 ///mergeAnim
-                //celLine[currentCell].StartMergeAnim();
+                celLine[nextCell].StartMergeAnim();
 
                 ///숫자 합쳐주고.
                 int mergeNum = celLine[nextCell].num;

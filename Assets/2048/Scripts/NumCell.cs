@@ -14,12 +14,22 @@ public class NumCell : MonoBehaviour
         set { _num = value; txt.text = _num.ToString(); }
     }
 
+    public int startNum = 2;
+
     public int c = 0;   //열
     public int r = 0;   //행
+
+    private Animator cellNumAnim = null;
 
     private void Awake()
     {
         txt = GetComponentInChildren<Text>();
-        num = 2;
+        num = startNum;
+        cellNumAnim = GetComponent<Animator>();
+    }
+
+    public void StartMergeAnim()
+    {
+        cellNumAnim.SetTrigger("Merge");
     }
 }

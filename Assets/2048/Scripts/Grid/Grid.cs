@@ -41,7 +41,18 @@ public partial class Grid : MonoBehaviour
         gameManager.Score = 0;
     }
 
-    public void SetGridMap(int count)
+    public void ResetPanel()
+    {
+        deleteCellsPanel();
+        deleteCellsNumPanel();
+        cellsNum.Clear();
+
+        SetGridMap(totalCount);
+        SetCells(totalCount);
+        DrawRandomCells(totalCount, testNumCellCountLimit);
+    }
+
+    private void SetGridMap(int count)
     {
         var myPanel = gridCellsPanel.GetComponent<RectTransform>();
         Vector2 myPanelSize = myPanel.sizeDelta;
@@ -55,7 +66,7 @@ public partial class Grid : MonoBehaviour
         myCellSize = cellSize;
     }
 
-    public void SetCells(int count)
+    private void SetCells(int count)
     {
         for (int c = 0; c < count; c++)
         {
@@ -78,7 +89,7 @@ public partial class Grid : MonoBehaviour
         return new Vector3(firstPos.x + col * myCellSize, firstPos.y + row * myCellSize, 0);
     }
 
-    public void DrawRandomCells(int count, int totalCellNum)
+    private void DrawRandomCells(int count, int totalCellNum)
     {
         int limitCount = 0;
 
@@ -119,17 +130,6 @@ public partial class Grid : MonoBehaviour
         cellNum.r = row;
         cellNum.name = string.Format("({0}, {1})", cellNum.c, cellNum.r);
         cellsNum.Add(cellNum);
-    }
-
-    public void ResetPanel()
-    {
-        deleteCellsPanel();
-        deleteCellsNumPanel();
-        cellsNum.Clear();
-
-        SetGridMap(totalCount);
-        SetCells(totalCount);
-        DrawRandomCells(totalCount, testNumCellCountLimit);
     }
 
     private void deleteCellsPanel()
