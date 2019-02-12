@@ -59,12 +59,12 @@ public partial class Grid : MonoBehaviour
                 break;
         }
 
-        checkMove = MoveCells(dir, dirCol, dirRow, startPoint);
+        checkMove = CheckandMoveCells(dir, dirCol, dirRow, startPoint);
 
         return checkMove;
     }
 
-    private bool MoveCells(DIRECTION dir, int dirCol, int dirRow, int startPoint)
+    private bool CheckandMoveCells(DIRECTION dir, int dirCol, int dirRow, int startPoint)
     {
         bool checkMove = false;
         bool checkMerge = false;
@@ -81,7 +81,9 @@ public partial class Grid : MonoBehaviour
             switch (dir)
             {
                 case DIRECTION.UP:
+                    //정렬
                     celLine.Sort((a, b) => b.r.CompareTo(a.r));
+                    //합치기
                     checkMerge = MergeCellNum(celLine);
                     if (checkMerge == true)
                         checkMergeCount++;
@@ -128,6 +130,11 @@ public partial class Grid : MonoBehaviour
             }
         }
 
+        return CheckCellMergeandMove(checkMerge, checkMove, checkMergeCount, checkMoveCount);
+    }
+
+    private bool CheckCellMergeandMove(bool checkMerge, bool checkMove, int checkMergeCount, int checkMoveCount)
+    {
         if (checkMergeCount > 0)
         {
             checkMerge = true;
